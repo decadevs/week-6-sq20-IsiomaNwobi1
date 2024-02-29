@@ -1,39 +1,30 @@
 import enums.Role;
-import models.Books;
-import models.LibraryUsers;
-import services.LibraryServices;
-import services.impl.LibraryServicesImpl;
+import models.Book;
+import models.User;
+import services.impl.LibraryServiceImpl;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
-        LibraryServices libraryService = new LibraryServicesImpl();
-        LibraryServices libraryServices1 = new LibraryServicesImpl();
+        LibraryServiceImpl libraryServices = new LibraryServiceImpl();
 
-        Books book1 = new Books("MockingBird", "Ciel Belle", 2);
-        Books book2 = new Books("Awakening", "Thomas Wan", 5);
-        Books book3 = new Books("Healing Within", "S.A John", 3);
+        User libraryUser1 = new User("Teacher Delia Uzo", Role.TEACHER, 1);
+        User libraryUser2 = new User("Snr Student Henry Okoro", Role.SENIOR_STUDENT, 2);
+        User libraryUser3 = new User("Jnr Student Amaka Eze", Role.JUNIOR_STUDENT, 3);
 
-        libraryService.addBooks(book1);
-        libraryServices1.addBooks(book1);
-        libraryService.addBooks(book2);
-        libraryServices1.addBooks(book2);
-        libraryService.addBooks(book3);
-        libraryServices1.addBooks(book3);
+        libraryServices.addUserToQueue(libraryUser2);
+        libraryServices.addUserToQueue(libraryUser1);
+        libraryServices.addUserToQueue(libraryUser3);
 
-        LibraryUsers teacher = new LibraryUsers("Teacher Delia Uzo", Role.TEACHER);
-        LibraryUsers seniorStudent = new LibraryUsers("Senior Student Henry Okoro", Role.SENIOR_STUDENT);
-        LibraryUsers juniorStudent = new LibraryUsers("Junior Student Sarah Eze", Role.JUNIOR_STUDENT);
+        Book book1 = new Book("MockingBird", "Ciel Belle", 3);
+        Book book2 = new Book("Awakening", "Thomas Wan", 5);
+        Book book3 = new Book("Healing Within", "S.A John", 10);
 
-        System.out.println(libraryService.borrowBook(teacher));
-        System.out.println(libraryService.borrowBook(seniorStudent));
-        System.out.println(libraryService.borrowBook(juniorStudent));
+        System.out.println(libraryServices.borrowBookFIFO(book1));
 
-        System.out.println("");
+        System.out.println("==================Priority====================");
 
-        System.out.println(libraryServices1.borrowBookInOrder(juniorStudent));
-        System.out.println(libraryServices1.borrowBookInOrder(seniorStudent));
-        System.out.println(libraryServices1.borrowBookInOrder(teacher));
+           System.out.println(libraryServices.borrowBookInPriority(book3));
     }
     }
 
